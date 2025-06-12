@@ -12,14 +12,24 @@
         }
 
         body {
-            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 25%, #2a1a1a 75%, #1a1a1a 100%);
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 25%, #2a1a1a 50%, #3a1a2a 75%, #1a1a1a 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 8s ease infinite;
             font-family: 'Consolas', 'Courier New', monospace;
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             padding: 20px;
+            perspective: 1500px;
             overflow: hidden;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            25% { background-position: 100% 50%; }
+            50% { background-position: 50% 100%; }
+            75% { background-position: 50% 0%; }
         }
 
         .discord-link {
@@ -34,33 +44,63 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 4px 8px rgba(0, 255, 136, 0.3);
-            transition: transform 0.2s ease;
+            box-shadow: 
+                0 8px 16px rgba(0, 255, 136, 0.4),
+                0 4px 8px rgba(0, 0, 0, 0.6),
+                inset 0 2px 4px rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+            transform: translateZ(20px);
             text-decoration: none;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateZ(20px) translateY(0px); }
+            50% { transform: translateZ(25px) translateY(-10px); }
         }
 
         .discord-link:hover {
-            transform: scale(1.05);
+            transform: translateZ(30px) scale(1.1);
+            box-shadow: 
+                0 12px 24px rgba(0, 255, 136, 0.6),
+                0 6px 12px rgba(0, 0, 0, 0.8),
+                inset 0 2px 4px rgba(255, 255, 255, 0.3);
         }
 
         .discord-logo {
             width: 32px;
             height: 32px;
             fill: #000;
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.5));
         }
 
         .glow-frame {
-            background: linear-gradient(45deg, #ff0080, #40ff80, #4080ff, #ff0080);
-            background-size: 200% 200%;
-            animation: rainbowGlow 3s ease-in-out infinite;
-            padding: 3px;
+            background: linear-gradient(45deg, #ff0080, #ff4040, #ff8040, #ffff40, #80ff40, #40ff80, #4080ff, #8040ff, #ff0080);
+            background-size: 800% 800%;
+            animation: rainbowGlow 4s ease-in-out infinite;
+            padding: 6px;
             border-radius: 25px;
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+            box-shadow: 
+                0 0 30px rgba(255, 255, 255, 0.3),
+                0 0 60px rgba(255, 255, 255, 0.2),
+                0 0 90px rgba(255, 255, 255, 0.1);
+            transform: rotateX(10deg) rotateY(-5deg);
+            transition: all 0.4s ease;
         }
 
         @keyframes rainbowGlow {
             0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
+            25% { background-position: 100% 50%; }
+            50% { background-position: 50% 100%; }
+            75% { background-position: 50% 0%; }
+        }
+
+        .glow-frame:hover {
+            transform: rotateX(0deg) rotateY(0deg) scale(1.02);
+            box-shadow: 
+                0 0 40px rgba(255, 255, 255, 0.5),
+                0 0 80px rgba(255, 255, 255, 0.3),
+                0 0 120px rgba(255, 255, 255, 0.2);
         }
 
         .calculator {
@@ -70,12 +110,17 @@
             width: 400px;
             max-width: 90vw;
             position: relative;
-            box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5);
+            box-shadow: 
+                inset 0 0 30px rgba(0, 0, 0, 0.8),
+                inset 0 0 60px rgba(0, 0, 0, 0.6);
+            transform-style: preserve-3d;
+            backdrop-filter: blur(10px);
         }
 
         .header {
             text-align: center;
             margin-bottom: 30px;
+            transform: translateZ(20px);
         }
 
         .title {
@@ -83,13 +128,34 @@
             font-size: 24px;
             font-weight: bold;
             margin-bottom: 5px;
-            text-shadow: 0 0 10px rgba(0, 255, 136, 0.6);
+            text-shadow: 
+                0 0 10px rgba(0, 255, 136, 0.8),
+                0 0 20px rgba(0, 255, 136, 0.6),
+                0 0 30px rgba(0, 255, 136, 0.4);
+            animation: titlePulse 2s ease-in-out infinite;
+        }
+
+        @keyframes titlePulse {
+            0%, 100% { 
+                transform: translateZ(15px) scale(1);
+                text-shadow: 
+                    0 0 10px rgba(0, 255, 136, 0.8),
+                    0 0 20px rgba(0, 255, 136, 0.6),
+                    0 0 30px rgba(0, 255, 136, 0.4);
+            }
+            50% { 
+                transform: translateZ(20px) scale(1.05);
+                text-shadow: 
+                    0 0 15px rgba(0, 255, 136, 1),
+                    0 0 30px rgba(0, 255, 136, 0.8),
+                    0 0 45px rgba(0, 255, 136, 0.6);
+            }
         }
 
         .subtitle {
             color: #66ffaa;
             font-size: 12px;
-            text-shadow: 0 0 5px rgba(102, 255, 170, 0.5);
+            text-shadow: 0 0 10px rgba(102, 255, 170, 0.8);
         }
 
         .display {
@@ -103,17 +169,38 @@
             justify-content: flex-end;
             box-shadow: 
                 inset 0 4px 8px rgba(0, 0, 0, 0.8),
-                0 0 10px rgba(0, 255, 136, 0.2);
+                inset 0 2px 4px rgba(0, 0, 0, 0.6),
+                0 0 15px rgba(0, 255, 136, 0.2);
             border: 2px solid rgba(0, 255, 136, 0.3);
+            transform: translateZ(15px);
             position: relative;
             overflow: hidden;
+        }
+
+        .display::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 136, 0.1), transparent);
+            animation: displayScan 3s ease-in-out infinite;
+        }
+
+        @keyframes displayScan {
+            0%, 100% { left: -100%; }
+            50% { left: 100%; }
         }
 
         .display-text {
             color: #00ff88;
             font-size: 32px;
             font-weight: bold;
-            text-shadow: 0 0 8px rgba(0, 255, 136, 0.6);
+            text-shadow: 
+                0 0 10px rgba(0, 255, 136, 0.8),
+                0 0 20px rgba(0, 255, 136, 0.4);
+            z-index: 1;
             word-break: break-all;
         }
 
@@ -121,6 +208,7 @@
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             gap: 15px;
+            transform: translateZ(10px);
         }
 
         .btn {
@@ -132,55 +220,146 @@
             font-size: 18px;
             font-weight: bold;
             cursor: pointer;
-            transition: all 0.15s ease;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+            transition: all 0.3s ease;
+            box-shadow: 
+                0 6px 12px rgba(0, 0, 0, 0.6),
+                0 3px 6px rgba(0, 0, 0, 0.8),
+                inset 0 2px 4px rgba(255, 255, 255, 0.1);
+            transform: translateZ(5px);
+            position: relative;
+            overflow: hidden;
             min-height: 60px;
-            touch-action: manipulation;
-            -webkit-tap-highlight-color: transparent;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .btn:hover::before {
+            left: 100%;
         }
 
         .btn.number {
             color: #ffffff;
-            text-shadow: 0 0 5px rgba(255, 255, 255, 0.4);
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.6);
         }
 
-        .btn.number:active {
+        .btn.number:hover {
             background: linear-gradient(145deg, #3a3a3a, #2a2a2a);
-            transform: scale(0.95);
+            transform: translateZ(8px) translateY(-2px);
+            box-shadow: 
+                0 10px 20px rgba(0, 0, 0, 0.8),
+                0 5px 10px rgba(255, 255, 255, 0.2),
+                inset 0 2px 4px rgba(255, 255, 255, 0.2);
         }
 
         .btn.operator {
             background: linear-gradient(145deg, #ff4444, #cc0000);
             color: white;
-            text-shadow: 0 0 5px rgba(255, 68, 68, 0.6);
+            text-shadow: 0 0 10px rgba(255, 68, 68, 0.8);
         }
 
-        .btn.operator:active {
+        .btn.operator:hover {
             background: linear-gradient(145deg, #ff6666, #ff0000);
-            transform: scale(0.95);
+            transform: translateZ(8px) translateY(-2px);
+            box-shadow: 
+                0 10px 20px rgba(0, 0, 0, 0.8),
+                0 5px 10px rgba(255, 68, 68, 0.4),
+                inset 0 2px 4px rgba(255, 255, 255, 0.2);
         }
 
         .btn.equals {
             background: linear-gradient(145deg, #00ff88, #00cc66);
             color: #000;
-            text-shadow: 0 0 5px rgba(0, 255, 136, 0.6);
+            text-shadow: 0 0 10px rgba(0, 255, 136, 0.8);
             grid-column: span 2;
         }
 
-        .btn.equals:active {
+        .btn.equals:hover {
             background: linear-gradient(145deg, #66ffaa, #00ff88);
-            transform: scale(0.95);
+            transform: translateZ(8px) translateY(-2px);
+            box-shadow: 
+                0 10px 20px rgba(0, 0, 0, 0.8),
+                0 5px 10px rgba(0, 255, 136, 0.4),
+                inset 0 2px 4px rgba(255, 255, 255, 0.2);
         }
 
         .btn.clear {
             background: linear-gradient(145deg, #ff8800, #cc6600);
             color: white;
-            text-shadow: 0 0 5px rgba(255, 136, 0, 0.6);
+            text-shadow: 0 0 10px rgba(255, 136, 0, 0.8);
         }
 
-        .btn.clear:active {
+        .btn.clear:hover {
             background: linear-gradient(145deg, #ffaa00, #ff8800);
-            transform: scale(0.95);
+            transform: translateZ(8px) translateY(-2px);
+            box-shadow: 
+                0 10px 20px rgba(0, 0, 0, 0.8),
+                0 5px 10px rgba(255, 136, 0, 0.4),
+                inset 0 2px 4px rgba(255, 255, 255, 0.2);
+        }
+
+        .btn:active {
+            transform: translateZ(2px) translateY(1px);
+            box-shadow: 
+                0 2px 4px rgba(0, 0, 0, 0.8),
+                0 1px 2px rgba(0, 0, 0, 0.6);
+        }
+
+        .floating-particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+            border-radius: 20px;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(0, 255, 136, 0.6);
+            border-radius: 50%;
+            animation: particleFloat 8s infinite linear;
+            box-shadow: 0 0 10px rgba(0, 255, 136, 0.8);
+        }
+
+        @keyframes particleFloat {
+            0% {
+                transform: translateY(100vh) translateX(0) scale(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) translateX(200px) scale(1) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .matrix-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0.15;
         }
 
         .history {
@@ -198,37 +377,14 @@
             position: absolute;
             bottom: 15px;
             left: 50%;
-            transform: translateX(-50%);
+            transform: translateX(-50%) translateZ(5px);
             color: #66ffaa;
             font-size: 10px;
             text-align: center;
-            text-shadow: 0 0 5px rgba(102, 255, 170, 0.4);
+            text-shadow: 0 0 5px rgba(102, 255, 170, 0.6);
         }
 
-        /* Minimal particle effect for devices that can handle it */
-        .particle {
-            position: absolute;
-            width: 2px;
-            height: 2px;
-            background: rgba(0, 255, 136, 0.4);
-            border-radius: 50%;
-            pointer-events: none;
-            animation: particleFloat 4s linear infinite;
-        }
-
-        @keyframes particleFloat {
-            0% {
-                transform: translateY(20px) scale(0);
-                opacity: 0;
-            }
-            10% { opacity: 1; }
-            90% { opacity: 1; }
-            100% {
-                transform: translateY(-100px) scale(1);
-                opacity: 0;
-            }
-        }
-
+        /* Mobile optimizations */
         @media (max-width: 480px) {
             .calculator {
                 width: 100%;
@@ -244,29 +400,49 @@
             .display-text {
                 font-size: 24px;
             }
-            
+
+            /* Reduce animations on mobile */
             .discord-link {
-                width: 50px;
-                height: 50px;
+                animation: none;
             }
             
-            .discord-logo {
-                width: 24px;
-                height: 24px;
+            .title {
+                animation: none;
+            }
+            
+            .display::before {
+                animation: none;
+            }
+            
+            .glow-frame {
+                animation: none;
+            }
+            
+            body {
+                animation: none;
+                background: #1a1a1a;
             }
         }
 
-        /* Reduce motion for users who prefer it */
-        @media (prefers-reduced-motion: reduce) {
-            *, *::before, *::after {
-                animation-duration: 0.01ms !important;
-                animation-iteration-count: 1 !important;
-                transition-duration: 0.01ms !important;
+        /* Performance optimizations for mobile */
+        @media (max-width: 768px) {
+            * {
+                transform-style: flat;
+            }
+            
+            .calculator {
+                transform-style: flat;
+            }
+            
+            .btn {
+                will-change: transform;
             }
         }
     </style>
 </head>
 <body>
+    <canvas class="matrix-bg" id="matrixCanvas"></canvas>
+    
     <!-- Discord Link -->
     <a href="https://discord.gg/EkwBUupRQs" class="discord-link">
         <svg class="discord-logo" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -276,6 +452,8 @@
     
     <div class="glow-frame">
         <div class="calculator">
+            <div class="floating-particles" id="particles"></div>
+            
             <div class="header">
                 <div class="title">🧮 CALCULATOR</div>
                 <div class="subtitle">BY LAKSHYA SHARMA AND LINUX AKA ( LAKSHYA)</div>
@@ -316,6 +494,10 @@
     </div>
 
     <script>
+        // Performance detection
+        const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth <= 768;
+        const isLowEndDevice = navigator.hardwareConcurrency <= 2 || navigator.deviceMemory <= 2;
+
         // Calculator Logic
         let display = document.getElementById('display');
         let history = document.getElementById('history');
@@ -424,67 +606,140 @@
             }
         });
 
-        // Lightweight particle effect only for capable devices
-        function createLightParticles() {
-            // Check if device can handle effects
-            if (window.innerWidth < 768 || navigator.hardwareConcurrency < 4) {
-                return; // Skip particles on mobile/low-end devices
+        // Optimized Matrix background effect
+        const canvas = document.getElementById('matrixCanvas');
+        const ctx = canvas.getContext('2d');
+        let matrixAnimationId;
+
+        function setupCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+
+        setupCanvas();
+
+        // Reduce matrix complexity on mobile/low-end devices
+        const chars = '0123456789+-×÷=()[]{}';
+        const charArray = chars.split('');
+        const fontSize = isMobile ? 20 : 16;
+        const columns = Math.floor(canvas.width / fontSize);
+
+        const drops = [];
+        for(let x = 0; x < columns; x++) {
+            drops[x] = 1;
+        }
+
+        function drawMatrix() {
+            // Skip frames for better performance on mobile
+            if (isMobile && Math.random() > 0.5) {
+                matrixAnimationId = requestAnimationFrame(drawMatrix);
+                return;
+            }
+
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.fillStyle = '#00ff88';
+            ctx.font = fontSize + 'px consolas';
+
+            // Reduce number of drops on mobile
+            const maxDrops = isMobile ? Math.min(drops.length, 20) : drops.length;
+            
+            for(let i = 0; i < maxDrops; i++) {
+                const text = charArray[Math.floor(Math.random() * charArray.length)];
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+                if(drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+                drops[i]++;
             }
             
-            const calculator = document.querySelector('.calculator');
-            for(let i = 0; i < 3; i++) {
+            matrixAnimationId = requestAnimationFrame(drawMatrix);
+        }
+
+        // Start matrix animation only on desktop or high-end devices
+        if (!isMobile || !isLowEndDevice) {
+            drawMatrix();
+        }
+
+        // Optimized floating particles
+        function createParticles() {
+            // Reduce particle count on mobile
+            const particleCount = isMobile ? 5 : 15;
+            const container = document.getElementById('particles');
+            
+            for(let i = 0; i < particleCount; i++) {
                 setTimeout(() => {
                     const particle = document.createElement('div');
                     particle.className = 'particle';
                     particle.style.left = Math.random() * 100 + '%';
-                    particle.style.top = '100%';
-                    particle.style.animationDelay = Math.random() * 2 + 's';
+                    particle.style.animationDelay = Math.random() * 8 + 's';
+                    particle.style.animationDuration = (Math.random() * 4 + 4) + 's';
                     
-                    calculator.appendChild(particle);
+                    // Random colors for particles
+                    const colors = ['#00ff88', '#ff4444', '#ff8800', '#66ffaa'];
+                    const color = colors[Math.floor(Math.random() * colors.length)];
+                    particle.style.background = color;
+                    particle.style.boxShadow = `0 0 10px ${color}`;
+                    
+                    container.appendChild(particle);
 
                     setTimeout(() => {
                         if(particle.parentNode) {
                             particle.parentNode.removeChild(particle);
                         }
-                    }, 4000);
-                }, i * 1000);
+                    }, 12000);
+                }, i * (isMobile ? 800 : 400));
             }
         }
 
-        // Only create particles on desktop or high-performance devices
-        if (window.innerWidth >= 768 && navigator.hardwareConcurrency >= 4) {
-            setInterval(createLightParticles, 6000);
+        // Reduce particle frequency on mobile
+        const particleInterval = isMobile ? 16000 : 8000;
+        setInterval(createParticles, particleInterval);
+        
+        // Only create initial particles on desktop
+        if (!isMobile) {
+            createParticles();
         }
 
-        // Optimize button interactions for mobile
+        // Optimized resize handler
+        let resizeTimeout;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(() => {
+                setupCanvas();
+            }, 250);
+        });
+
+        // Optimized button click effects
         document.querySelectorAll('.btn').forEach(button => {
-            // Add visual feedback only, don't interfere with click events
-            button.addEventListener('touchstart', function(e) {
-                this.style.transform = 'scale(0.95)';
-            }, { passive: true });
-            
-            button.addEventListener('touchend', function(e) {
-                setTimeout(() => {
-                    this.style.transform = '';
-                }, 100);
-            }, { passive: true });
-            
-            // Desktop visual feedback
-            button.addEventListener('mousedown', function() {
-                this.style.transform = 'scale(0.95)';
-            });
-            
-            button.addEventListener('mouseup', function() {
-                setTimeout(() => {
-                    this.style.transform = '';
-                }, 100);
+            button.addEventListener('click', function() {
+                // Lighter animation on mobile
+                if (isMobile) {
+                    this.style.opacity = '0.8';
+                    setTimeout(() => {
+                        this.style.opacity = '';
+                    }, 100);
+                } else {
+                    this.style.transform = 'translateZ(2px) translateY(1px)';
+                    setTimeout(() => {
+                        this.style.transform = '';
+                    }, 150);
+                }
             });
         });
 
-        // Prevent context menu on long press for buttons only
-        document.addEventListener('contextmenu', function(e) {
-            if (e.target.classList.contains('btn')) {
-                e.preventDefault();
+        // Pause heavy animations when page is not visible
+        document.addEventListener('visibilitychange', function() {
+            if (document.hidden) {
+                if (matrixAnimationId) {
+                    cancelAnimationFrame(matrixAnimationId);
+                }
+            } else {
+                if (!isMobile || !isLowEndDevice) {
+                    drawMatrix();
+                }
             }
         });
     </script>
